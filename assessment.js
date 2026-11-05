@@ -5,7 +5,7 @@ const assessmentButton = document.getElementById('assessment');
 const resultDivision = document.getElementById('result-area');
 const tweetDivision = document.getElementById('tweet-area');
 
-assessmentButton.addEventListener('click',() => {
+assessmentButton.addEventListener('click', () => {
   const userName = userNameInput.value;
   if (userName.length === 0) {
     // 名前が空のときは処理を終了する
@@ -15,43 +15,43 @@ assessmentButton.addEventListener('click',() => {
   // 結果画面の作成
   resultDivision.innerText = ''; // 結果画面エリアのクリア
 
-   // headerDivision の作成
-    const headerDivision = document.createElement('div');
-    headerDivision.setAttribute('class', 'card-header text-bg-primary');
-    headerDivision.innerText = '診断結果';
+  // headerDivision の作成
+  const headerDivision = document.createElement('div');
+  headerDivision.setAttribute('class', 'card-header text-bg-primary');
+  headerDivision.innerText = '診断結果';
 
-    // bodyDivision の作成
-    const bodyDivision = document.createElement('div');
-    bodyDivision.setAttribute('class', 'card-body');
+  // bodyDivision の作成
+  const bodyDivision = document.createElement('div');
+  bodyDivision.setAttribute('class', 'card-body');
 
-    const paragraph = document.createElement('p');
-    paragraph.setAttribute('class', 'card-text');
-    const result = assessment(userName);
-    paragraph.innerText = result;
-    bodyDivision.appendChild(paragraph);
+  const paragraph = document.createElement('p');
+  paragraph.setAttribute('class', 'card-text');
+  const result = assessment(userName);
+  paragraph.innerText = result;
+  bodyDivision.appendChild(paragraph);
 
-    // resultDivision に Bootstrap のスタイルを適用する
-    resultDivision.setAttribute('class', 'card');
+  // resultDivision に Bootstrap のスタイルを適用する
+  resultDivision.setAttribute('class', 'card');
 
-    // headerDivision と bodyDivision を resultDivision に差し込む
-    resultDivision.appendChild(headerDivision);
-    resultDivision.appendChild(bodyDivision);
+  // headerDivision と bodyDivision を resultDivision に差し込む
+  resultDivision.appendChild(headerDivision);
+  resultDivision.appendChild(bodyDivision);
 
   // ツイートエリアを作成
   tweetDivision.innerText = ''; // ツイートエリアのクリア
-  
-  const anchor = document.createElement('a');
-    const hrefValue = 'https://x.com/intent/tweet?button_hashtag=' + encodeURIComponent('あなたのいいところ') +  '&ref_src=twsrc%5Etfw';
-    anchor.setAttribute('href', hrefValue);
-    anchor.setAttribute('class', 'twitter-hashtag-button');
-    anchor.setAttribute('data-text', result);
-    anchor.innerText = 'Tweet #あなたのいいところ';
-    tweetDivision.appendChild(anchor);
 
-    const script = document.createElement('script');
-    script.setAttribute('src','https://platform.twitter.com/widgets.js');
-    tweetDivision.appendChild(script);
-  })
+  const anchor = document.createElement('a');
+  const hrefValue = 'https://x.com/intent/tweet?button_hashtag=' + encodeURIComponent('あなたのいいところ') + '&ref_src=twsrc%5Etfw';
+  anchor.setAttribute('href', hrefValue);
+  anchor.setAttribute('class', 'twitter-hashtag-button');
+  anchor.setAttribute('data-text', result);
+  anchor.innerText = 'Tweet #あなたのいいところ';
+  tweetDivision.appendChild(anchor);
+
+  const script = document.createElement('script');
+  script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
+  tweetDivision.appendChild(script);
+})
 
 userNameInput.addEventListener(
   'keydown',
@@ -90,13 +90,13 @@ const answers = [
 function assessment(userName) {
   // 全文字のコード番号を取得してそれを足し合わせる
   let sunOfCharCode = 0;
-  for(let i = 0; i < userName.length; i ++) {
+  for (let i = 0; i < userName.length; i++) {
     sunOfCharCode += userName.charCodeAt(i);
   }
 
   // 文字コードの番号の合計を回答の数で割って添字の数値を求める
   const index = sunOfCharCode % answers.length;
   let result = answers[index];
-  result = result.replaceAll('###userName###',userName);
+  result = result.replaceAll('###userName###', userName);
   return result;
 }
